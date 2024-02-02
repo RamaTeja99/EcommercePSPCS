@@ -1,3 +1,4 @@
+<!-- navbar.html -->
 {% load static %}
 <html lang="en">
 <head>
@@ -9,33 +10,67 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar fixed-top">
     <div class="container-fluid">
-        <div class="d-flex">
+        <div class="d-flex justify-content-between w-100">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/logo.svg' %}" alt="Logo" height="30">
+            </a>
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <a class="navbar-brand" href="#">E-commerce System</a>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" href="{% url 'products' %}">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Categories</a>
+                    <a class="nav-link" href="{% url 'categories' %}">Categories</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">Price Comparison</a>
                 </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
             </ul>
-        </div>
-        <div class="search-icon" onclick="toggleSearch()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-            </svg>
-        </div>
-        <div class="search-form">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+            <div class="search-icon" onclick="toggleSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </div>
+
+            <div class="search-form">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'images/user.svg' %}" alt="User Profile" height="30">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                    <li class="user-info">
+                        {% if user.is_authenticated %}
+                            <p>Hello, {{ user.username }}</p>
+                            <!-- Add other user information as needed -->
+                        {% else %}
+                            <p>Not logged in</p>
+                            <span style="display: inline-block; margin-right: 1.5cm; font-style: italic;">
+                                <a href="{% url 'login' %}">Login</a>
+                            </span>
+                            <span style="font-style: italic;">
+                                <a href="">Register</a>
+                            </span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
