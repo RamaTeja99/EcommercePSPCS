@@ -29,12 +29,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Price Comparison</a>
                 </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
             </ul>
 
             <div class="search-icon" onclick="toggleSearch()">
@@ -57,17 +51,20 @@
                 <ul class="dropdown-menu" aria-labelledby="userDropdown">
                     <li class="user-info">
                         {% if user.is_authenticated %}
-                            <p>Hello, {{ user.username }}</p>
-                            <!-- Add other user information as needed -->
-                        {% else %}
-                            <p>Not logged in</p>
-                            <span style="display: inline-block; margin-right: 1.5cm; font-style: italic;">
-                                <a href="{% url 'login' %}">Login</a>
-                            </span>
-                            <span style="font-style: italic;">
-                                <a href="">Register</a>
-                            </span>
-                        {% endif %}
+                        <li class="nav-item">
+                           <span class="nav-link">Welccome,{{ user.username}}</span>
+                        </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Login </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %} ">Signup </a>
+                    </li>
+                   {% endif %}
                     </li>
                 </ul>
             </div>
