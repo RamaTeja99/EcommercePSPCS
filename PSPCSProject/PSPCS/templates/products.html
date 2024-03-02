@@ -1,11 +1,51 @@
-{% extends 'productsnavbar.html' %}
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Product Page</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/productsnavbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/products.css">
 </head>
 <body>
+    <div class="container-fluid">
+        <!-- Left Section (Product Navbar) -->
+        <div class="left-section">
+            {% include 'productnavbar.html' %}
+        </div>
 
+        <!-- Right Section (Product Cards) -->
+        <div class="right-section">
+            <div class="container">
+                <div class="product-grid">
+                    {% for product in page_obj %}
+                        <div class="product-cart">
+                            <h2>{{ product.name }}</h2>
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            <p class="price">Price: {{ product.price }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

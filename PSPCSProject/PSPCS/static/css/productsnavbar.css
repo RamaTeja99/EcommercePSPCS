@@ -1,10 +1,4 @@
-/* products.css */
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-}
+/* productsnavbar.css */
 
 .container-fluid {
     display: flex;
@@ -31,7 +25,7 @@ body {
     color: black;
     font-weight: bold;
     font-size: 1.2em; /* Adjust font size as needed */
-    position: relative; /* Added position relative for ::after pseudo-element */
+    position: relative;
 }
 
 .left-section a img {
@@ -41,16 +35,16 @@ body {
 }
 
 .left-section .user-profile-section {
-    margin-top: auto; /* Adjusted to move to the bottom */
+    margin-top: auto;
     display: flex;
-    flex-direction: column; /* Adjusted to stack elements vertically */
+    flex-direction: column;
     align-items: center;
     padding: 10px;
     text-decoration: none;
     color: black;
     font-weight: bold;
-    font-size: 1.2em; /* Adjust font size as needed */
-    position: relative; /* Added position relative for ::after pseudo-element */
+    font-size: 1.2em;
+    position: relative;
 }
 
 .left-section .user-profile-section img {
@@ -61,15 +55,6 @@ body {
 
 .logout-btn {
     font-style: italic;
-}
-
-.right-section {
-    background-color: white;
-    height: 100vh;
-    padding: 20px;
-    position: relative;
-    box-sizing: border-box;
-    width: calc(100% - 3cm); /* Adjust the width to complement the left section */
 }
 
 .user-profile-section {
@@ -88,7 +73,7 @@ body {
     text-decoration: none;
     color: black;
     font-weight: bold;
-    font-size: 1.2em; /* Adjust font size as needed */
+    font-size: 1.2em;
 }
 
 .user-profile-section img {

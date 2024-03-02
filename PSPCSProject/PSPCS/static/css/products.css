@@ -1,0 +1,35 @@
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-cart {
+    width: calc(33.33% - 20px); /* Set width to one-third minus margin */
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Include padding and border in total width */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    flex-grow: 1; /* Allow product cards to grow to fill space evenly */
+    max-width: calc(33.33% - 20px); /* Set max-width to prevent overflow */
+}
+
+.product-cart h2 {
+    margin-bottom: 10px;
+}
+
+.product-cart img {
+    width: 300px; /* Set image width */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-cart p {
+    margin-bottom: 5px;
+}
+
+.product-cart .price {
+    font-weight: bold;
+    color: #008000; /* Green color for price */
+}
