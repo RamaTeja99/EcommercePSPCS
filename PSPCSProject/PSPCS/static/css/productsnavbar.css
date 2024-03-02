@@ -1,13 +1,7 @@
 /* productsnavbar.css */
-
-.container-fluid {
-    display: flex;
-    flex-direction: row;
-}
-
 .left-section {
     background-color: rgb(224, 224, 224);
-    height: 100vh;
+    min-height: 400vh; /* Ensure navbar expands to at least the height of the viewport */
     width: 3cm; /* Adjust the width as needed */
     padding-top: 20px;
     box-sizing: border-box;
