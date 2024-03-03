@@ -1,3 +1,15 @@
+/* products.css */
+
+/* Product Page Styles */
+.container-fluid {
+    display: flex;
+}
+
+.right-section {
+    flex-grow: 1; /* Fill remaining space */
+    margin-left: 50px;
+}
+
 .product-grid {
     display: flex;
     flex-wrap: wrap;
@@ -5,14 +17,15 @@
 }
 
 .product-cart {
-    width: calc(33.33% - 20px); /* Set width to one-third minus margin */
+    width: calc(33.33% - 20px);
     margin-bottom: 20px;
-    box-sizing: border-box; /* Include padding and border in total width */
+    box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    flex-grow: 1; /* Allow product cards to grow to fill space evenly */
-    max-width: calc(33.33% - 20px); /* Set max-width to prevent overflow */
+    border-radius: 25px;
+    padding: 50px;
+    flex-grow: 1;
+    max-width: calc(33.33% - 20px);
+
 }
 
 .product-cart h2 {
@@ -32,4 +45,26 @@
 .product-cart .price {
     font-weight: bold;
     color: #008000; /* Green color for price */
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid #ccc;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #ccc;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
 }

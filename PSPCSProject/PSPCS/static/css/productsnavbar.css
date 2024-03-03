@@ -1,15 +1,17 @@
-/* productsnavbar.css */
 .left-section {
     background-color: rgb(224, 224, 224);
-    min-height: 400vh; /* Ensure navbar expands to at least the height of the viewport */
-    width: 3cm; /* Adjust the width as needed */
+    width: 50px; /* Adjust the width as needed */
     padding-top: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    overflow-x: hidden;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
-
 .left-section a {
     display: flex;
     align-items: center;
@@ -52,6 +54,7 @@
 }
 
 .user-profile-section {
+    margin-top: auto;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -80,7 +83,6 @@
     margin-top: 5px;
 }
 
-/* Show button text on image hover */
 .left-section a:hover::after,
 .left-section .user-profile-section:hover::after {
     content: attr(data-button-text);
