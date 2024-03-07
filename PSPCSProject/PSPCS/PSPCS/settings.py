@@ -76,17 +76,36 @@ WSGI_APPLICATION = 'PSPCS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ProductSearch',
+#         'USER': 'postgres',
+#         'PASSWORD': 'vamsi308',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ProductSearch',
         'USER': 'postgres',
-        'PASSWORD': 'vamsi308',
+        'PASSWORD': '25092004',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ProductSearch',
+#         'USER': 'postgres',
+#         'PASSWORD': 'charan',
+#         'HOST': 'localhost',
+#         'PORT': '5433',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
