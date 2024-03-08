@@ -1,12 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
-from django.views import View
 
 
-class DashBoardView(View):
-    def get(self, request):
-        return render(request, 'dashboard.html')
+def dashboard(request):
+     return render(request, 'dashboard.html')
 
 
 def homepage(request):
