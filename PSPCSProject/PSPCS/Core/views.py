@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
 from django.views import View
 
@@ -29,7 +30,7 @@ def login1(request):
         user = auth.authenticate(username=username, password=pass1)
         if user is not None:
             auth.login(request, user)
-            return render(request, 'homepage.html')
+            return render(request, 'dashboard.html')
         else:
             messages.info(request, 'Invalid credentials')
             return render(request, 'login.html')
@@ -61,10 +62,20 @@ def register1(request):
             return render(request, 'register.html')
 
 
+@login_required
 def logout(request):
     auth.logout(request)
-    return render(request, 'dashboard.html')
+    messages.info(request, 'You have been successfully logged out.')
+    return render(request, 'homepage.html')
 
+@login_required
+def custom_logout(request):
+    # Log out the user
+    auth.logout(request)
+    # Add a message for the user
+    messages.info(request, 'You have been successfully logged out.')
+    # Redirect the user to the login page or any other desired page
+    return render(request, 'homepage.html')
 
 from django.shortcuts import render
 from django.core.paginator import Paginator
