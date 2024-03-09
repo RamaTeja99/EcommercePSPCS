@@ -86,16 +86,16 @@ WSGI_APPLICATION = 'PSPCS.wsgi.application'
 #         'PORT': '5432',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ProductSearch',
-        'USER': 'postgres',
-        'PASSWORD': '25092004',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ProductSearch',
+#         'USER': 'postgres',
+#         'PASSWORD': '25092004',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -106,6 +106,18 @@ DATABASES = {
 #         'PORT': '5433',
 #     }
 # }
+
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'railway',
+    'USER': 'postgres',
+    'PASSWORD': 'sdtIHOPjBGwgrhyJxfwFyWaGXpvPZKTm',
+    'HOST': 'roundhouse.proxy.rlwy.net',
+    'PORT': '26721',
+  }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
