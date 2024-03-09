@@ -66,14 +66,6 @@ def logout(request):
     messages.info(request, 'You have been successfully logged out.')
     return render(request, 'homepage.html')
 
-@login_required
-def custom_logout(request):
-    # Log out the user
-    auth.logout(request)
-    # Add a message for the user
-    messages.info(request, 'You have been successfully logged out.')
-    # Redirect the user to the login page or any other desired page
-    return render(request, 'homepage.html')
 
 from django.shortcuts import render
 from django.core.paginator import Paginator
