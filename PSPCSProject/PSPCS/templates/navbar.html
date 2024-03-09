@@ -39,41 +39,43 @@
                 </svg>
             </div>
 
-            <div class="search-form">
-                <form class="d-flex" role="search">
-                    <input aria-label="Search" class="form-control me-2" placeholder="Search for products"
-                           type="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+            <form action="{% url 'search_products' %}" class="d-flex" method="get" role="search">
+               {% csrf_token %}
+    <input aria-label="Search" class="form-control me-2" name="searchTerm" placeholder="Search for products" type="search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 
-            <div class="dropdown">
-                <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="userDropdown"
-                        type="button">
-                    <img alt="User Profile" height="30" src="{% static 'images/user.svg' %}">
-                </button>
-                <ul aria-labelledby="userDropdown" class="dropdown-menu">
-                    {% if request.user.is_authenticated %}
-                    <li class="user-info">
-                    <li class="nav-item">
-                        <span class="nav-link">Welcome, {{ request.user.username }}</span>
-                    </li>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %} ">Signup </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+
 
         </div>
+
+        <div class="dropdown">
+            <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="userDropdown"
+                    type="button">
+                <img alt="User Profile" height="30" src="{% static 'images/user.svg' %}">
+            </button>
+            <ul aria-labelledby="userDropdown" class="dropdown-menu">
+                {% if request.user.is_authenticated %}
+                <li class="user-info">
+                <li class="nav-item">
+                    <span class="nav-link">Welcome, {{ request.user.username }}</span>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %} ">Signup </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
     </div>
 </nav>
 
