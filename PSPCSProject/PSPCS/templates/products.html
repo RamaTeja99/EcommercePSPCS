@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Page</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/products.css">
+    <link href="/static/css/products.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="container-fluid">
-        {% include 'productnavbar.html' %}
-        <div class="right-section">
-            <div class="container">
-                <div class="product-grid">
-                    {% for product in page_obj %}
-                        <div class="product-cart">
-                            <h2>{{ product.name }}</h2>
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                            <p class="price">Price: {{ product.price }}</p>
-                        </div>
-                    {% endfor %}
+<div class="container-fluid">
+    {% include 'productnavbar.html' %}
+    <div class="right-section">
+        <div class="container">
+            <div class="product-grid">
+                {% for product in page_obj %}
+                <div class="product-cart">
+                    <a href="{% url 'product_description' product_id=product.id %}">
+                        <h2>{{ product.name }}</h2>
+                    </a>
+
+
+                    <img alt="{{ product.name }}" src="{{ product.image.url }}">
+                    <p class="price">Price: {{ product.price }}</p>
                 </div>
-                <!-- Pagination -->
-                <div class="pagination">
+                {% endfor %}
+            </div>
+            <!-- Pagination -->
+            <div class="pagination">
                     <span class="step-links">
                         {% if page_obj.has_previous %}
                             <a href="?page=1">&laquo; first</a>
@@ -34,9 +38,9 @@
                             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                         {% endif %}
                     </span>
-                </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

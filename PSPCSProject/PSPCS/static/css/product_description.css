@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+}
+
+.product-image {
+    flex: 1;
+}
+
+.product-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.prev-product {
+    margin-top: 20px;
+    margin-left: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+.prev-products h2 {
+    margin-left: 45px;
+}
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .product-image,
+    .product-details {
+        width: 100%;
+    }
+}

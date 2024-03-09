@@ -1,0 +1,35 @@
+{% include 'productnavbar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link href="/static/css/product_description.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-details">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.price }}</p>
+            <p>{{ formatted_description | safe }}</p> <!-- Use the formatted_description variable with safe filter -->
+            <p><a href="{{ product.link }}" target="_blank">Product Link</a></p>
+        </div>
+    </div>
+
+    {% if last_viewed_products %}
+    <div class="prev-products">
+        <h2>Previously Viewed Products</h2>
+        {% for prev_product in last_viewed_products %}
+            <div class="prev-product">
+                <h3>{{ prev_product.name }}</h3>
+                <p>{{ prev_product.price }}</p>
+                <!-- Add more details if needed -->
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

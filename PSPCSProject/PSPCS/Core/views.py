@@ -1,16 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404, HttpResponse
+from bs4 import BeautifulSoup
+import requests
+from .models import Product
 
 
 def dashboard(request):
-     return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html')
 
 
 def homepage(request):
     return render(request, 'homepage.html')
-
-
 
 
 def categories(request):
@@ -48,7 +51,7 @@ def register1(request):
         pass2 = request.POST['password1']
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
-                messages.info(request, 'OOPS! Usename already taken')
+                messages.info(request, 'OOPS! Username already taken')
                 return render(request, 'register.html')
             else:
                 user = User.objects.create_user(username=username, password=pass1)
@@ -56,7 +59,7 @@ def register1(request):
                 messages.info(request, 'Account created successfully!!')
                 return render(request, 'login.html')
         else:
-            messages.info(request, 'Password do not match')
+            messages.info(request, 'Passwords do not match')
             return render(request, 'register.html')
 
 
@@ -67,56 +70,54 @@ def logout(request):
     return render(request, 'homepage.html')
 
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from .models import Product
-
 def products(request):
-    # Retrieve all products from the database
     all_products = Product.objects.all()
-
-    # Pagination
     paginator = Paginator(all_products, 9)  # 9 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
     return render(request, 'products.html', {'page_obj': page_obj})
 
 
-
-from bs4 import BeautifulSoup
-import requests
-
-
 def scrape_and_update_price(product):
-    # Send a GET request to the URL
     response = requests.get(product.link)
-
-    # Check if the request was successful
     if response.status_code == 200:
-        # Parse the HTML content
         soup = BeautifulSoup(response.content, 'html.parser')
-
-        # Find the element containing the price
         price_element = soup.find('span', class_='price')
-
-        # Extract the price text
         if price_element:
             price = price_element.text.strip()
-            # Update the price field of the product
             product.price = price
             product.save()
 
 
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
-from .models import Product
-
-
 def update_price(request, product_id):
-    # Retrieve the product object
     product = get_object_or_404(Product, pk=product_id)
-
-    # Call the function to scrape and update price
     scrape_and_update_price(product)
     return HttpResponse("Price updated successfully!")
+
+
+def product_description(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    formatted_description = product.description.replace("->", "<br>")
+    last_product_viewed = request.session.get('last_product_viewed', [])
+
+    # Ensure last_product_viewed is always a list
+    if not isinstance(last_product_viewed, list):
+        last_product_viewed = [last_product_viewed]
+
+    # Append the current product ID to the list of last viewed products
+    if product_id not in last_product_viewed:
+        last_product_viewed.append(product_id)
+
+    # Limit the list to the last 4 viewed products
+    last_product_viewed = last_product_viewed[-4:]
+
+    # Update the session variable
+    request.session['last_product_viewed'] = last_product_viewed
+
+    # Retrieve the product objects for the last viewed products
+    last_viewed_products = Product.objects.filter(pk__in=last_product_viewed)
+
+    # Ensure the current product is not included in the last viewed products
+    last_viewed_products = last_viewed_products.exclude(pk=product_id)
+
+    return render(request, 'product_description.html', {'product': product, 'last_viewed_products': last_viewed_products,'formatted_description': formatted_description})
