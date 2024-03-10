@@ -4,6 +4,11 @@
 
 {% block body %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<section class="welcome">
+  <div class="container">
+    <span class="welcome">Welcome, {{ request.user.username }}</span>
+  </div>
+</section>
 <section class="hero">
   <div class="container">
     <div class="row align-items-center">
