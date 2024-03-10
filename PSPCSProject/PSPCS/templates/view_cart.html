@@ -1,0 +1,27 @@
+{% include 'productnavbar.html' %}
+<html>
+<head>
+    <title>View Cart</title>
+    <link href="/static/css/view_cart.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/products">Continue Shopping</a>
+</body>
+</html>
