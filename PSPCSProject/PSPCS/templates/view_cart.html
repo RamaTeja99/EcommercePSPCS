@@ -17,7 +17,7 @@
         <tbody>
             {% for item in cart_items %}
             <tr>
-                <td>{{ item.product.name }}</td>
+                <td><a href="{% url 'search_products' %}?searchTerm={{ item.product.name }}">{{ item.product.name }}</a></td>
                 <td>{{ item.quantity }}</td>
                 <td>
                     <form action="{% url 'delete_cart_item' item.id %}" method="post">
