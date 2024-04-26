@@ -27,11 +27,11 @@
 {% if product.productplatform_set.all %}
 <div class="platforms">
     <h2>Available Platforms</h2>
-    <div class="platforms-list"> <!-- Add a container for platforms -->
+    <br>
         {% for platform_product in product.productplatform_set.all %}
         <div class="platform-product">
             <div class="platform-image">
-                <img alt="{{ platform_product.platform.name }}" src="{{ platform_product.platform.image.url }}">
+                <img alt="{{ platform_product.platform.name }}" src="{{ platform_product.image.url }}">
             </div>
             <div class="platform-details">
                 <h3>{{ platform_product.platform.name }}</h3>
