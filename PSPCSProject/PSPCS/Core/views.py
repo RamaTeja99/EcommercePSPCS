@@ -5,24 +5,19 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from bs4 import BeautifulSoup
 import requests
-from .models import Product
-
+from .models import Product, ProductPlatform
 
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-
 def homepage(request):
     return render(request, 'homepage.html')
-
 
 def categories(request):
     return render(request, 'categories.html')
 
-
 def login(request):
     return render(request, 'login.html')
-
 
 def login1(request):
     if request.method == 'POST':
@@ -35,14 +30,11 @@ def login1(request):
         else:
             messages.info(request, 'Invalid credentials')
             return render(request, 'login.html')
-
     else:
         return render(request, 'login.html')
 
-
 def register(request):
     return render(request, 'register.html')
-
 
 def register1(request):
     if request.method == "POST":
@@ -62,77 +54,52 @@ def register1(request):
             messages.info(request, 'Passwords do not match')
             return render(request, 'register.html')
 
-
 @login_required
 def logout(request):
     auth.logout(request)
     messages.info(request, 'You have been successfully logged out.')
     return render(request, 'homepage.html')
 
-
-from django.db.models import F
-
 def products(request):
     all_products = Product.objects.all()
-
-    # Get the selected price filter option
     price_filter = request.GET.get('price-filter')
-
-    # Default ordering (no price filter)
     ordering = 'price'  # Default ascending order
     if price_filter == 'low_to_high':
         ordering = 'price'
     elif price_filter == 'high_to_low':
         ordering = '-price'
-
-    # Apply ordering to the queryset
     all_products = all_products.order_by(ordering)
-
     paginator = Paginator(all_products, 9)  # 9 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'products.html', {'page_obj': page_obj})
 
 def scrape_and_update_price(product):
-    response = requests.get(product.link)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        price_element = soup.find('span', class_='price')
-        if price_element:
-            price = price_element.text.strip()
-            product.price = price
-            product.save()
-
+    platforms = ProductPlatform.objects.filter(product=product)
+    for platform in platforms:
+        response = requests.get(platform.link)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            price_element = soup.find('span', class_='price')
+            if price_element:
+                price = price_element.text.strip()
+                platform.price = price
+                platform.save()
 
 def update_price(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     scrape_and_update_price(product)
-    return HttpResponse("Price updated successfully!")
-
+    return HttpResponse("Prices updated successfully!")
 
 def product_description(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     formatted_description = product.description.replace("->", "<br>")
     last_product_viewed = request.session.get('last_product_viewed', [])
-
-    # Ensure last_product_viewed is always a list
     if not isinstance(last_product_viewed, list):
         last_product_viewed = [last_product_viewed]
-
-    # Append the current product ID to the list of last viewed products
     if product_id not in last_product_viewed:
         last_product_viewed.append(product_id)
-
-    # Limit the list to the last 4 viewed products
     last_product_viewed = last_product_viewed[-4:]
-
-    # Update the session variable
     request.session['last_product_viewed'] = last_product_viewed
-
-    # Retrieve the product objects for the last viewed products
-    last_viewed_products = Product.objects.filter(pk__in=last_product_viewed)
-
-    # Ensure the current product is not included in the last viewed products
-    last_viewed_products = last_viewed_products.exclude(pk=product_id)
-
+    last_viewed_products = Product.objects.filter(pk__in=last_product_viewed).exclude(pk=product_id)
     return render(request, 'product_description.html', {'product': product, 'last_viewed_products': last_viewed_products,'formatted_description': formatted_description})
