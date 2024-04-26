@@ -1,6 +1,32 @@
-/* products.css */
+/* Filter Section Styles */
+.filter-section {
+    margin-bottom: 20px;
+}
 
-/* Product Page Styles */
+#price-filter {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#price-filter option {
+    padding: 8px;
+}
+
+.filter-section button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #007bff; /* Blue color for button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-section button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
 .container-fluid {
     display: flex;
 }

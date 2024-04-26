@@ -70,13 +70,28 @@ def logout(request):
     return render(request, 'homepage.html')
 
 
+from django.db.models import F
+
 def products(request):
     all_products = Product.objects.all()
+
+    # Get the selected price filter option
+    price_filter = request.GET.get('price-filter')
+
+    # Default ordering (no price filter)
+    ordering = 'price'  # Default ascending order
+    if price_filter == 'low_to_high':
+        ordering = 'price'
+    elif price_filter == 'high_to_low':
+        ordering = '-price'
+
+    # Apply ordering to the queryset
+    all_products = all_products.order_by(ordering)
+
     paginator = Paginator(all_products, 9)  # 9 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'products.html', {'page_obj': page_obj})
-
 
 def scrape_and_update_price(product):
     response = requests.get(product.link)
