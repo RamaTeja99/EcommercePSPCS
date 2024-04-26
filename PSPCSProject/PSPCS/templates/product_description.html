@@ -27,7 +27,7 @@
     {% if product.productplatform_set.all %}
     <div class="platforms">
          <h2 class="text-center">Available Platforms</h2>
-        {% for platform_product in product.productplatform_set.all %}
+        {% for platform_product in product.productplatform_set.all|dictsort:"price" %}
         <div class="platform-product">
             <div class="platform-image">
                 {% if platform_product.platform.name == "Apple" %}
