@@ -24,14 +24,23 @@
             </form>
         </div>
     </div>
-{% if product.productplatform_set.all %}
-<div class="platforms">
-    <h2>Available Platforms</h2>
-    <br>
+    {% if product.productplatform_set.all %}
+    <div class="platforms">
+         <h2 class="text-center">Available Platforms</h2>
         {% for platform_product in product.productplatform_set.all %}
         <div class="platform-product">
             <div class="platform-image">
-                <img alt="{{ platform_product.platform.name }}" src="{{ platform_product.image.url }}">
+                {% if platform_product.platform.name == "Apple" %}
+                <img alt="{{ platform_product.platform.name }}" src="{% static 'product_images/apple.jpg' %}">
+                {% elif platform_product.platform.name == "Amazon" %}
+                <img alt="{{ platform_product.platform.name }}" src="{% static 'product_images/amazon.jpg' %}">
+                {% elif platform_product.platform.name == "Flipkart" %}
+                <img alt="{{ platform_product.platform.name }}" src="{% static 'product_images/flipkart.jpg' %}">
+                {% elif platform_product.platform.name == "Croma" %}
+                <img alt="{{ platform_product.platform.name }}" src="{% static 'product_images/croma.jpg' %}">
+                {% elif platform_product.platform.name == "Sumsung" %}
+                <img alt="{{ platform_product.platform.name }}" src="{% static 'product_images/sumsung.jpg' %}">
+                {% endif %}
             </div>
             <div class="platform-details">
                 <h3>{{ platform_product.platform.name }}</h3>
@@ -41,22 +50,20 @@
         </div>
         {% endfor %}
     </div>
-</div>
-{% endif %}
+    {% endif %}
 
-
-{% if last_viewed_products %}
-<div class="prev-products">
-    <h2>Previously Viewed Products</h2>
-    {% for prev_product in last_viewed_products %}
-    <div class="prev-product">
-        <h3>{{ prev_product.name }}</h3>
-        <!-- Add more details if needed -->
+    {% if last_viewed_products %}
+    <div class="prev-products">
+        <h2>Previously Viewed Products</h2>
+        {% for prev_product in last_viewed_products %}
+        <div class="prev-product">
+            <h3>{{ prev_product.name }}</h3>
+            <!-- Add more details if needed -->
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
 </div>
-{% endif %}
-
 </body>
 </html>
 {% endblock %}

@@ -74,10 +74,20 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.platforms h2 {
+    display: inline-block; /* Changed to inline-block */
+    font-size: 1.5em;
+    margin: 0.83em 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    text-align: center; /* Added to center the text */
+}
+
+
 .platform-product {
     display: inline-block; /* Change to display horizontally */
     width: auto; /* Remove width calculation */
-    margin: 10px; /* Adjust margin as needed */
+    margin: 35px; /* Adjust margin as needed */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -86,8 +96,9 @@ body {
 }
 
 .platform-product .platform-image img {
-    max-width: 100px;
-    border-radius: 5px;
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 10px; /* Adjust border-radius for curved edges */
 }
 
 .platform-details h3 {
