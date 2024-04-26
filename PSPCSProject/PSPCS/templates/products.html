@@ -11,17 +11,6 @@
     <div class="right-section">
         <div class="container">
             <!-- Price Filter Section -->
-            <div class="filter-section">
-                <form method="GET" action="{% url 'products' %}">
-                    <label for="price-filter">Filter by Price:</label>
-                    <select name="price-filter" id="price-filter">
-                        <option value="">All</option>
-                        <option value="low_to_high">Low to High</option>
-                        <option value="high_to_low">High to Low</option>
-                    </select>
-                    <button type="submit">Apply Filter</button>
-                </form>
-            </div>
 
             <!-- Product Grid -->
             <div class="product-grid">
@@ -31,7 +20,7 @@
                         <h2>{{ product.name }}</h2>
                     </a>
                     <img alt="{{ product.name }}" src="{{ product.image.url }}">
-                    <p class="price">Price: {{ product.price }}</p>
+
                 </div>
                 {% endfor %}
             </div>

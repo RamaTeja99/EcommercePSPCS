@@ -62,18 +62,10 @@ def logout(request):
 
 def products(request):
     all_products = Product.objects.all()
-    price_filter = request.GET.get('price-filter')
-    ordering = 'price'  # Default ascending order
-    if price_filter == 'low_to_high':
-        ordering = 'price'
-    elif price_filter == 'high_to_low':
-        ordering = '-price'
-    all_products = all_products.order_by(ordering)
     paginator = Paginator(all_products, 9)  # 9 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'products.html', {'page_obj': page_obj})
-
 def scrape_and_update_price(product):
     platforms = ProductPlatform.objects.filter(product=product)
     for platform in platforms:
@@ -91,9 +83,14 @@ def update_price(request, product_id):
     scrape_and_update_price(product)
     return HttpResponse("Prices updated successfully!")
 
+from django.shortcuts import render, get_object_or_404
+from .models import Product
+
 def product_description(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     formatted_description = product.description.replace("->", "<br>")
+
+    # Track last viewed products in session
     last_product_viewed = request.session.get('last_product_viewed', [])
     if not isinstance(last_product_viewed, list):
         last_product_viewed = [last_product_viewed]
@@ -101,5 +98,13 @@ def product_description(request, product_id):
         last_product_viewed.append(product_id)
     last_product_viewed = last_product_viewed[-4:]
     request.session['last_product_viewed'] = last_product_viewed
+
+    # Retrieve last viewed products (excluding current product)
     last_viewed_products = Product.objects.filter(pk__in=last_product_viewed).exclude(pk=product_id)
-    return render(request, 'product_description.html', {'product': product, 'last_viewed_products': last_viewed_products,'formatted_description': formatted_description})
+
+    context = {
+        'product': product,
+        'last_viewed_products': last_viewed_products,
+        'formatted_description': formatted_description,
+    }
+    return render(request, 'product_description.html', context)

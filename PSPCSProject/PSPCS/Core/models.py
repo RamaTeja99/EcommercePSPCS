@@ -4,6 +4,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     features = models.TextField()
+    image = models.ImageField(upload_to='static/product_images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     link = models.URLField(blank=True)
 

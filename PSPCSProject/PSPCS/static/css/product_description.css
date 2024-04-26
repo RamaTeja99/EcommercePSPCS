@@ -1,41 +1,56 @@
-.container {
-    display: flex;
-}
-.product-details {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 25px;
 }
 
-.product-details h1 {
+/* Container for the entire page */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Product details section */
+.product-details {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    flex-basis: 30%;
+    margin-right: 20px;
+}
+
+
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-info h1 {
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
 }
 
-.product-details p {
+.product-info p {
     margin-bottom: 10px;
     color: #666;
 }
 
-.product-details a {
+.product-info a {
     color: #007bff;
     text-decoration: none;
     transition: color 0.3s;
 }
-#product-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-}
 
-.product-details a:hover {
+.product-info a:hover {
     color: #0056b3;
 }
 
-.product-details form button {
+.product-info form button {
     background-color: #28a745;
     color: #fff;
     border: none;
@@ -45,10 +60,50 @@
     transition: background-color 0.3s;
 }
 
-.product-details form button:hover {
+.product-info form button:hover {
     background-color: #218838;
 }
 
+/* Platforms section */
+.platforms {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.platforms-list {
+    margin-top: 10px; /* Add space above platforms */
+    /* Additional styling for the platform list container */
+}
+.platform-product {
+    width: calc(25% - 20px);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.platform-product .platform-image img {
+    max-width: 100px;
+    border-radius: 5px;
+}
+
+.platform-details h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.platform-details p {
+    margin-bottom: 5px;
+    color: #666;
+}
+
+/* Previously viewed products section */
 .prev-products {
     margin-top: 40px;
     margin-left: 80px;
@@ -72,10 +127,4 @@
 .prev-product h3 {
     font-size: 18px;
     margin-bottom: 5px;
-    color: #333;
-}
-
-.prev-product p {
-    margin-bottom: 5px;
-    color: #666;
 }
